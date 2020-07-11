@@ -60,19 +60,16 @@ class SleepTrackerFragment : Fragment() {
             }
         })
 
-        sleepTrackerViewModel.startButtonVisible?.observe(this, Observer {
-            if (it == true)
+        sleepTrackerViewModel.startAndStopButtonVisibility?.observe(this, Observer {
+            if (it == true) {
                 binding.startButton.visibility = View.VISIBLE
-            else
+                binding.stopButton.visibility = View.INVISIBLE
+            } else {
                 binding.startButton.visibility = View.INVISIBLE
+                binding.stopButton.visibility = View.VISIBLE
+            }
         })
 
-        sleepTrackerViewModel.stopButtonVisible?.observe(this, Observer {
-            if (it == true)
-                binding.stopButton.visibility = View.VISIBLE
-            else
-                binding.stopButton.visibility = View.INVISIBLE
-        })
         sleepTrackerViewModel.clearButtonVisible?.observe(this, Observer {
             if (it == true)
                 binding.clearButton.visibility = View.VISIBLE
