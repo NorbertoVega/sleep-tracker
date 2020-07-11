@@ -52,9 +52,29 @@ class SleepTrackerFragment : Fragment() {
             if (it == true){
                 Snackbar.make(activity!!.findViewById(android.R.id.content),
                         getString(R.string.cleared_message),
-                        Snackbar.LENGTH_SHORT).show()
+                        Snackbar.LENGTH_LONG).show()
                 sleepTrackerViewModel.doneShowingSnackbar()
             }
+        })
+
+        sleepTrackerViewModel.startButtonVisible?.observe(this, Observer {
+            if (it == true)
+                binding.startButton.visibility = View.VISIBLE
+            else
+                binding.startButton.visibility = View.INVISIBLE
+        })
+
+        sleepTrackerViewModel.stopButtonVisible?.observe(this, Observer {
+            if (it == true)
+                binding.stopButton.visibility = View.VISIBLE
+            else
+                binding.stopButton.visibility = View.INVISIBLE
+        })
+        sleepTrackerViewModel.clearButtonVisible?.observe(this, Observer {
+            if (it == true)
+                binding.clearButton.visibility = View.VISIBLE
+            else
+                binding.clearButton.visibility = View.INVISIBLE
         })
 
         return binding.root
