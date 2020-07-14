@@ -17,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class SleepTrackerFragment : Fragment() {
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -34,7 +33,8 @@ class SleepTrackerFragment : Fragment() {
 
         val manager = GridLayoutManager(activity, 3)
         binding.sleepList.layoutManager = manager
-        val adapter = SleepNightAdapter()
+
+        val adapter = SleepNightAdapter(SleepNightListener { nightId -> sleepTrackerViewModel.onSleepNightClicked(nightId)})
         binding.sleepList.adapter = adapter
 
         sleepTrackerViewModel.nights.observe(this, Observer {
@@ -75,6 +75,14 @@ class SleepTrackerFragment : Fragment() {
                 binding.clearButton.visibility = View.VISIBLE
             else
                 binding.clearButton.visibility = View.INVISIBLE
+        })
+
+        sleepTrackerViewModel.navigateToSleepDataQuality.observe(this, Observer {nightId ->
+            nightId?.let {
+                findNavController().navigate(SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepDetailFragment(nightId))
+                sleepTrackerViewModel.onSleepDataQualityNavigated()
+            }
+
         })
 
         return binding.root
