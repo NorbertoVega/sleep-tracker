@@ -12,7 +12,6 @@ class SleepDetailViewModel(
         private val sleepNightKey: Long = 0L,
         dataSource: SleepDatabaseDao) : ViewModel() {
 
-
     val database = dataSource
     private val viewModelJob = Job()
     private val night = MediatorLiveData<SleepNight>()
